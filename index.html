@@ -3,47 +3,13 @@
 <head>
     <title>號誌學習</title>
     <style>
-        body {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-            margin: 0;
-            background-color: #f0f0f0;
-            font-family: Arial, sans-serif;
-        }
-        h1 {
-            position: absolute;
-            top: 0;
-            width: 100%;
-            text-align: center;
-            background-color: #4CAF50;
-            color: white;
-            padding: 10px 0;
-        }
-        .start-button, .option-button, .back-button {
-            font-size: 20px;
-            padding: 10px 20px;
-            margin: 10px;
-        }
-        #quiz-image {
-            width: 300px;
-            height: 300px;
-        }
-        #countdown {
-            position: absolute;
-            top: 0;
-            left: 0;
-            font-size: 30px;
-            background-color: white;
-            padding: 10px;
-        }
+        /* 省略部分程式碼 */
     </style>
     <script>
         var currentQuestion = 0;
         var correctAnswers = 0;
         var startTime;
+        var endTime;  // 新增一個變數來記錄結束時間
         var timer;
         var countdown;
         var questions = [
@@ -59,32 +25,18 @@
         ];
 
         function startQuiz() {
-            var numQuestions = document.getElementById('num-questions').value;
-            questions = shuffleArray(questions).slice(0, numQuestions);
-            document.getElementById('title').style.display = 'none';  // 隱藏標題
-            document.getElementById('start-button').style.display = 'none';
-            document.getElementById('num-questions').style.display = 'none';  // 隱藏題目數量選擇
-            document.getElementById('quiz-content').style.display = 'block';
+            /* 省略部分程式碼 */
             startTime = new Date();
             showQuestion();
         }
 
         function showQuestion() {
-            document.getElementById('quiz-image').src = questions[currentQuestion].image;
-            timer = setTimeout(nextQuestion, 5000);  // 5秒後自動跳至下一題
-            countdown = 5;
-            document.getElementById('countdown').innerText = countdown + '秒';
-            var countdownTimer = setInterval(function() {
-                countdown--;
-                document.getElementById('countdown').innerText = countdown + '秒';
-                if (countdown <= 0) {
-                    clearInterval(countdownTimer);
-                }
-            }, 1000);
+            /* 省略部分程式碼 */
         }
 
         function checkAnswer(answer) {
             clearTimeout(timer);  // 停止計時器
+            endTime = new Date();  // 更新結束時間
             if (answer === questions[currentQuestion].answer) {
                 alert('答對了！');
                 correctAnswers++;
@@ -95,16 +47,10 @@
         }
 
         function nextQuestion() {
-            currentQuestion++;
-            if (currentQuestion < questions.length) {
-                showQuestion();
-            } else {
-                endQuiz();
-            }
+            /* 省略部分程式碼 */
         }
 
         function endQuiz() {
-            var endTime = new Date();
             var timeSpent = Math.round((endTime - startTime) / 1000);  // 花費時間，單位為秒
             var averageTimePerQuestion = Math.round(timeSpent / questions.length);  // 每題平均花費時間，單位為秒
             var accuracy = Math.round((correctAnswers / questions.length) * 100);  // 答題正確率，單位為百分比
@@ -115,50 +61,15 @@
         }
 
         function backToTitle() {
-            document.getElementById('title').style.display = 'block';  // 顯示標題
-            document.getElementById('start-button').style.display = 'inline-block';
-            document.getElementById('num-questions').style.display = 'inline-block';  // 顯示題目數量選擇
-            document.getElementById('result').style.display = 'none';
-            currentQuestion = 0;
-            correctAnswers = 0;
+            /* 省略部分程式碼 */
         }
 
         function shuffleArray(array) {
-            for (var i = array.length - 1; i > 0; i--) {
-                var j = Math.floor(Math.random() * (i + 1));
-                var temp = array[i];
-                array[i] = array[j];
-                array[j] = temp;
-            }
-            return array;
+            /* 省略部分程式碼 */
         }
     </script>
 </head>
 <body>
-    <h1 id="title">號誌學習</h1>
-    <select id="num-questions">
-        <option value="6">6題</option>
-        <option value="12">12題</option>
-        <option value="18">18題</option>
-        <option value="24">24題</option>
-        <option value="30">30題</option>
-    </select>
-    <button id="start-button" class="start-button" onclick="startQuiz()">開始</button>
-    <div id="quiz-content" style="display: none;">
-        <div id="countdown"></div>
-        <img id="quiz-image" src="" alt="Quiz Image">
-        <button class="option-button" onclick="checkAnswer('中速')">中速</button>
-        <button class="option-button" onclick="checkAnswer('緩速')">緩速</button>
-        <button class="option-button" onclick="checkAnswer('低速')">低速</button>
-        <button class="option-button" onclick="checkAnswer('慢速')">慢速</button>
-        <button class="option-button" onclick="checkAnswer('注意')">注意</button>
-        <button class="option-button" onclick="checkAnswer('准調號誌')">准調號誌</button>
-    </div>
-    <div id="result" style="display: none;">
-        <h2>統計結果</h2>
-        <p id="accuracy"></p>
-        <p id="time-spent"></p>
-        <button id="back-button" class="back-button" onclick="backToTitle()">返回標題</button>
-    </div>
+    <!-- 省略部分程式碼 -->
 </body>
 </html>
