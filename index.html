@@ -3,7 +3,42 @@
 <head>
     <title>號誌學習</title>
     <style>
-        /* 省略部分程式碼 */
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+            font-family: Arial, sans-serif;
+        }
+        h1 {
+            position: absolute;
+            top: 0;
+            width: 100%;
+            text-align: center;
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 0;
+        }
+        .start-button, .option-button, .back-button {
+            font-size: 20px;
+            padding: 10px 20px;
+            margin: 10px;
+        }
+        #quiz-image {
+            width: 300px;
+            height: 300px;
+        }
+        #countdown {
+            position: absolute;
+            top: 0;
+            left: 0;
+            font-size: 30px;
+            background-color: white;
+            padding: 10px;
+        }
     </style>
     <script>
         var currentQuestion = 0;
