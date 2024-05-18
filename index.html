@@ -10,7 +10,7 @@ align-items: center;
 justify-content: center;
 height: 100vh;
 margin: 0;
-background-color: #000000;
+background-color: #ffffff;
 font-family: Arial, sans-serif;
 }
 h1 {
@@ -34,7 +34,7 @@ margin: 10px;
   display: none;
   justify-content: center;
    align-items: center;
-    color: #FFFFFF;
+    color: #000000;
     font-size: 50px;
 }
 
@@ -114,35 +114,35 @@ color: black;
         var timeSpentPerQuestion = [];
         var questions = [
           {
-              image: 'https://i.imgur.com/CRdXDf2.jpeg',
+              image: 'https://raw.githubusercontent.com/CharlotteFTSY/signaling/main/中速.png',
               answer: '中速'
           },
           {
-              image: 'https://i.imgur.com/CRdXDf2.jpeg',
+              image: 'https://raw.githubusercontent.com/CharlotteFTSY/signaling/main/緩速.gif',
               answer: '緩速'
           },
           {
-              image: 'https://i.imgur.com/CRdXDf2.jpeg',
+              image: 'https://raw.githubusercontent.com/CharlotteFTSY/signaling/main/低速.gif',
               answer: '低速'
           },
           {
-              image: 'your-image-url-4.jpg',
+              image: 'https://raw.githubusercontent.com/CharlotteFTSY/signaling/main/慢速.png',
               answer: '慢速'
           },
           {
-              image: 'your-image-url-5.jpg',
+              image: 'https://raw.githubusercontent.com/CharlotteFTSY/signaling/main/注意.png',
               answer: '注意'
           },
           {
-              image: 'your-image-url-6.jpg',
+              image: 'https://raw.githubusercontent.com/CharlotteFTSY/signaling/main/准調.gif',
               answer: '准調'
           },
           {
-              image: 'your-image-url-7.jpg',
+              image: 'https://raw.githubusercontent.com/CharlotteFTSY/signaling/main/平安.png',
               answer: '平安'
           },
           {
-              image: 'your-image-url-8.jpg',
+              image: 'https://raw.githubusercontent.com/CharlotteFTSY/signaling/main/險阻.png',
               answer: '險阻'
           },
             // 更多問題...
@@ -177,35 +177,39 @@ color: black;
             }
             nextQuestion();
         }
-
         function showQuestion() {
+
+    var selectedOptions = [];
     console.log('Current question:', currentQuestion);  // 印出目前的題目編號
     document.getElementById('quiz-image').src = questions[currentQuestion].image;
     countdown = 5;
     document.getElementById('timer').innerText = formatTime(countdown);
     startTime = new Date();
     console.log('startTime:', startTime);  // 印出開始時間
-
-    // 隨機選擇四個選項按鈕來顯示
     var options = ['中速', '緩速', '低速', '慢速', '注意', '准調', '平安', '險阻'];
-    var selectedOptions = [];
+    console.log('Adding answer:', questions[currentQuestion].answer);
+    selectedOptions.push(questions[currentQuestion].answer);  // 先將正確答案加入選項
     while (selectedOptions.length < 4) {
         var option = options[Math.floor(Math.random() * options.length)];
-        if (selectedOptions.indexOf(option) === -1 || option === questions[currentQuestion].answer) {
+        if (selectedOptions.indexOf(option) === -1) {
+           console.log('Adding option:', option);
             selectedOptions.push(option);
         }
+        console.log('selectedOptions.length:', selectedOptions.length);  // 印出選項數量
     }
+    selectedOptions = shuffleArray(selectedOptions);  // 打亂選項順序
+    var buttons = document.querySelectorAll('.option-button');
+    console.log('selectedOptions2.length:', selectedOptions.length);  // 印出選項數量
+    console.log('buttons.length:', buttons.length);  // 印出按鈕數量
 
-    // 更新選項按鈕的顯示狀態
-    for (var i = 0; i < options.length; i++) {
-        var button = document.querySelector('.option-button[onclick="checkAnswer(\'' + options[i] + '\')"]');
-        if (selectedOptions.indexOf(options[i]) !== -1) {
-            button.style.display = 'inline-block';
-        } else {
-            button.style.display = 'none';
-        }
+    for (var i = 0; i < buttons.length; i++) {
+        buttons[i].style.display = 'none';  // 先將所有按鈕隱藏
     }
-
+    for (var i = 0; i < selectedOptions.length; i++) {
+        var button = document.querySelector('.option-button[data-option="' + selectedOptions[i] + '"]');
+            console.log('Selected button:', button);
+        button.style.display = 'inline-block';  // 只顯示被選中的按鈕
+    }
     timer = setInterval(function() {
         countdown--;
         document.getElementById('timer').innerText = formatTime(countdown);
@@ -217,8 +221,8 @@ color: black;
             setTimeout(nextQuestion, 1000);
         }
     }, 1000);
-}
 
+}
 
         function nextQuestion() {
             currentQuestion++;
@@ -252,56 +256,55 @@ color: black;
             timeSpentPerQuestion = [];
             questions = [  // 重置問題陣列
               {
-                  image: 'https://i.imgur.com/CRdXDf2.jpeg',
+                  image: 'https://raw.githubusercontent.com/CharlotteFTSY/signaling/main/中速.png',
                   answer: '中速'
               },
               {
-                  image: 'https://i.imgur.com/CRdXDf2.jpeg',
+                  image: 'https://raw.githubusercontent.com/CharlotteFTSY/signaling/main/緩速.gif',
                   answer: '緩速'
               },
               {
-                  image: 'https://i.imgur.com/CRdXDf2.jpeg',
+                  image: 'https://raw.githubusercontent.com/CharlotteFTSY/signaling/main/低速.gif',
                   answer: '低速'
               },
               {
-                  image: 'your-image-url-4.jpg',
+                  image: 'https://raw.githubusercontent.com/CharlotteFTSY/signaling/main/慢速.png',
                   answer: '慢速'
               },
               {
-                  image: 'your-image-url-5.jpg',
+                  image: 'https://raw.githubusercontent.com/CharlotteFTSY/signaling/main/注意.png',
                   answer: '注意'
               },
               {
-                  image: 'your-image-url-6.jpg',
+                  image: 'https://raw.githubusercontent.com/CharlotteFTSY/signaling/main/准調.gif',
                   answer: '准調'
               },
               {
-                  image: 'your-image-url-7.jpg',
+                  image: 'https://raw.githubusercontent.com/CharlotteFTSY/signaling/main/平安.png',
                   answer: '平安'
               },
               {
-                  image: 'your-image-url-8.jpg',
+                  image: 'https://raw.githubusercontent.com/CharlotteFTSY/signaling/main/險阻.png',
                   answer: '險阻'
               },
-
                 // 更多問題...
             ];
+
         }
 
 
-        function shuffleArray(array, numQuestions) {
-        var result = [];
-        var lastQuestion = null;
-        for (var i = 0; i < numQuestions; i++) {
-            var j;
-            do {
-                j = Math.floor(Math.random() * array.length);
-            } while (array[j] === lastQuestion);
-            result.push(array[j]);
-            lastQuestion = array[j];
+        function shuffleArray(array) {
+            var result = [];
+            var tempArray = [...array];  // 創建一個 array 的副本以避免改變原始陣列
+            while (tempArray.length > 0) {
+                var randomIndex = Math.floor(Math.random() * tempArray.length);
+                result.push(tempArray[randomIndex]);
+                tempArray.splice(randomIndex, 1);  // 從 tempArray 中移除已選擇的元素
+            }
+            return result;
         }
-        return result;
-    }
+
+
 
         // Function to format time with leading zero if necessary
         function formatTime(time) {
@@ -350,14 +353,14 @@ color: black;
   </div>
 
   <div class="frame">
-      <button class="option-button" onclick="checkAnswer('中速')" onkeydown="return event.key !== 'Enter'">中速</button>
-      <button class="option-button" onclick="checkAnswer('緩速')" onkeydown="return event.key !== 'Enter'">緩速</button>
-      <button class="option-button" onclick="checkAnswer('低速')" onkeydown="return event.key !== 'Enter'">低速</button>
-      <button class="option-button" onclick="checkAnswer('慢速')" onkeydown="return event.key !== 'Enter'">慢速</button>
-      <button class="option-button" onclick="checkAnswer('注意')" onkeydown="return event.key !== 'Enter'">注意</button>
-      <button class="option-button" onclick="checkAnswer('准調')" onkeydown="return event.key !== 'Enter'">准調</button>
-      <button class="option-button" onclick="checkAnswer('平安')" onkeydown="return event.key !== 'Enter'">平安</button>
-      <button class="option-button" onclick="checkAnswer('險阻')" onkeydown="return event.key !== 'Enter'">險阻</button>
+      <button class="option-button" data-option="中速" onclick="checkAnswer('中速')" onkeydown="return event.key !== 'Enter'">中速</button>
+      <button class="option-button" data-option="緩速" onclick="checkAnswer('緩速')" onkeydown="return event.key !== 'Enter'">緩速</button>
+      <button class="option-button" data-option="低速" onclick="checkAnswer('低速')" onkeydown="return event.key !== 'Enter'">低速</button>
+      <button class="option-button" data-option="慢速" onclick="checkAnswer('慢速')" onkeydown="return event.key !== 'Enter'">慢速</button>
+      <button class="option-button" data-option="注意" onclick="checkAnswer('注意')" onkeydown="return event.key !== 'Enter'">注意</button>
+      <button class="option-button" data-option="准調" onclick="checkAnswer('准調')" onkeydown="return event.key !== 'Enter'">准調</button>
+      <button class="option-button" data-option="平安" onclick="checkAnswer('平安')" onkeydown="return event.key !== 'Enter'">平安</button>
+      <button class="option-button" data-option="險阻" onclick="checkAnswer('險阻')" onkeydown="return event.key !== 'Enter'">險阻</button>
   </div>
 </div>
 <div id="result">
