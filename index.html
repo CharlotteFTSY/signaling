@@ -3,92 +3,239 @@
 <head>
     <title>號誌學習</title>
     <style>
-        body {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-            margin: 0;
-            background-color: #f0f0f0;
-            font-family: Arial, sans-serif;
-        }
-        h1 {
-            position: absolute;
-            top: 0;
-            width: 100%;
-            text-align: center;
-            background-color: #4CAF50;
-            color: white;
-            padding: 10px 0;
-        }
-        .start-button, .option-button, .back-button {
-            font-size: 20px;
-            padding: 10px 20px;
-            margin: 10px;
-        }
-        #quiz-image {
-            width: 300px;
-            height: 300px;
-        }
-        #countdown {
-            position: absolute;
-            top: 0;
-            left: 0;
-            font-size: 30px;
-            background-color: white;
-            padding: 10px;
-        }
-    </style>
+    body {
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+height: 100vh;
+margin: 0;
+background-color: #000000;
+font-family: Arial, sans-serif;
+}
+h1 {
+position: absolute;
+top: 0;
+width: 100%;
+text-align: center;
+background-color: #4CAF50;
+color: white;
+padding: 10px 0;
+font-size: 50px;
+}
+.start-button, .option-button, .back-button {
+  width: auto;
+  height: auto;
+font-size: 50px;
+padding: 10px 20px;
+margin: 10px;
+}
+#result {
+  display: none;
+  justify-content: center;
+   align-items: center;
+    color: #FFFFFF;
+    font-size: 50px;
+}
+
+#result h2 {
+    text-align: center;
+    font-size: 50px;
+}
+#back-button {
+  margin: auto;  /* 新增這行 */
+  display: block;  /* 新增這行 */
+}
+#quiz-content {
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+}
+#quiz-image {
+    max-width: 30%;  /* 調整這裡的數值來改變圖片的最大寬度 */
+    max-height: 30%;  /* 調整這裡的數值來改變圖片的最大高度 */
+    height: auto;
+    object-fit: contain;
+    display: block;
+    margin: 0 auto;
+}
+#timer {
+position: absolute;
+top: 0;
+left: 0;
+font-size: 6.67vh;
+background-color: white;
+padding: 10px;
+}
+#num-questions {
+    font-size: 50px;
+}
+
+.frame {
+       display: flex;
+       flex-wrap: wrap;
+       justify-content: center;
+       padding: 10px;
+       margin-bottom: 10px;
+   }
+   .option-button {
+       flex: 1 0 auto;
+
+       margin: 2px;
+       padding: 10px;
+       border: none;
+       color: white;
+       background-color: #4CAF50;
+       text-align: center;
+       text-decoration: none;
+       font-size: 50px;
+       transition-duration: 0.4s;
+       cursor: pointer;
+   }
+.option-button:hover {
+background-color: white;
+color: black;
+}
+/* 當螢幕寬度小於或等於 600px 時 */
+@media (max-width: 600px) {
+    .option-button {
+        margin: 2px;
+    }
+}
+</style>
     <script>
+
         var currentQuestion = 0;
         var correctAnswers = 0;
         var startTime;
-        var endTime;  // 新增一個變數來記錄結束時間
         var timer;
         var countdown;
+        var timeSpentPerQuestion = [];
         var questions = [
-            {
-                image: 'your-image-url-1.jpg',
-                answer: '中速'
-            },
-            {
-                image: 'your-image-url-2.jpg',
-                answer: '緩速'
-            },
+          {
+              image: 'https://i.imgur.com/CRdXDf2.jpeg',
+              answer: '中速'
+          },
+          {
+              image: 'https://i.imgur.com/CRdXDf2.jpeg',
+              answer: '緩速'
+          },
+          {
+              image: 'https://i.imgur.com/CRdXDf2.jpeg',
+              answer: '低速'
+          },
+          {
+              image: 'your-image-url-4.jpg',
+              answer: '慢速'
+          },
+          {
+              image: 'your-image-url-5.jpg',
+              answer: '注意'
+          },
+          {
+              image: 'your-image-url-6.jpg',
+              answer: '准調'
+          },
+          {
+              image: 'your-image-url-7.jpg',
+              answer: '平安'
+          },
+          {
+              image: 'your-image-url-8.jpg',
+              answer: '險阻'
+          },
             // 更多問題...
         ];
 
         function startQuiz() {
-            /* 省略部分程式碼 */
+
+          var numQuestions = document.getElementById('num-questions').value;
+          console.log('numQuestions:', numQuestions);  // 印出題目數量
+          questions = shuffleArray(questions, numQuestions);
+          console.log('questions:', questions);  // 印出題目陣列
+            document.getElementById('title').style.display = 'none';
+            document.getElementById('start-button').style.display = 'none';
+            document.getElementById('num-questions').style.display = 'none';
+            document.getElementById('quiz-content').style.display = 'block';
             startTime = new Date();
+            console.log('startTime:', startTime);  // 印出開始時間
             showQuestion();
         }
 
-        function showQuestion() {
-            /* 省略部分程式碼 */
-        }
-
         function checkAnswer(answer) {
-            clearTimeout(timer);  // 停止計時器
-            endTime = new Date();  // 更新結束時間
+            console.log('User answer:', answer);  // 印出使用者的答案
+            clearInterval(timer);
+            var endTime = new Date();
+            console.log('endTime:', endTime);  // 印出結束時間
+            timeSpentPerQuestion.push((endTime - startTime) / 1000);
             if (answer === questions[currentQuestion].answer) {
-                alert('答對了！');
                 correctAnswers++;
+                console.log('Correct! Total correct answers:', correctAnswers);  // 印出正確答案數量
             } else {
                 alert('答錯了，正確答案是：' + questions[currentQuestion].answer);
             }
-            setTimeout(nextQuestion, 5000);  // 5秒後自動跳至下一題
+            nextQuestion();
         }
 
+        function showQuestion() {
+    console.log('Current question:', currentQuestion);  // 印出目前的題目編號
+    document.getElementById('quiz-image').src = questions[currentQuestion].image;
+    countdown = 5;
+    document.getElementById('timer').innerText = formatTime(countdown);
+    startTime = new Date();
+    console.log('startTime:', startTime);  // 印出開始時間
+
+    // 隨機選擇四個選項按鈕來顯示
+    var options = ['中速', '緩速', '低速', '慢速', '注意', '准調', '平安', '險阻'];
+    var selectedOptions = [];
+    while (selectedOptions.length < 4) {
+        var option = options[Math.floor(Math.random() * options.length)];
+        if (selectedOptions.indexOf(option) === -1 || option === questions[currentQuestion].answer) {
+            selectedOptions.push(option);
+        }
+    }
+
+    // 更新選項按鈕的顯示狀態
+    for (var i = 0; i < options.length; i++) {
+        var button = document.querySelector('.option-button[onclick="checkAnswer(\'' + options[i] + '\')"]');
+        if (selectedOptions.indexOf(options[i]) !== -1) {
+            button.style.display = 'inline-block';
+        } else {
+            button.style.display = 'none';
+        }
+    }
+
+    timer = setInterval(function() {
+        countdown--;
+        document.getElementById('timer').innerText = formatTime(countdown);
+        if (countdown <= 0) {
+            clearInterval(timer);
+            var endTime = new Date();
+            console.log('endTime:', endTime);  // 印出結束時間
+            timeSpentPerQuestion.push((endTime - startTime) / 1000);
+            setTimeout(nextQuestion, 1000);
+        }
+    }, 1000);
+}
+
+
         function nextQuestion() {
-            /* 省略部分程式碼 */
+            currentQuestion++;
+            if (currentQuestion < questions.length) {
+                showQuestion();
+            } else {
+                endQuiz();
+            }
         }
 
         function endQuiz() {
-            var timeSpent = Math.round((endTime - startTime) / 1000);  // 花費時間，單位為秒
-            var averageTimePerQuestion = Math.round(timeSpent / questions.length);  // 每題平均花費時間，單位為秒
-            var accuracy = Math.round((correctAnswers / questions.length) * 100);  // 答題正確率，單位為百分比
+            var totalSpentTime = timeSpentPerQuestion.reduce(function(a, b) { return a + b; }, 0);
+            console.log('totalSpentTime:', totalSpentTime);  // 印出總花費時間
+            var averageTimePerQuestion = Math.round(totalSpentTime / questions.length);
+            console.log('averageTimePerQuestion:', averageTimePerQuestion);  // 印出每題平均花費時間
+            var accuracy = Math.round((correctAnswers / questions.length) * 100);
+            console.log('accuracy:', accuracy);  // 印出答題正確率
             document.getElementById('quiz-content').style.display = 'none';
             document.getElementById('result').style.display = 'block';
             document.getElementById('accuracy').innerText = '答題正確率：' + accuracy + '%';
@@ -96,15 +243,129 @@
         }
 
         function backToTitle() {
-            /* 省略部分程式碼 */
+            document.getElementById('title').style.display = 'block';
+            document.getElementById('start-button').style.display = 'inline-block';
+            document.getElementById('num-questions').style.display = 'inline-block';
+            document.getElementById('result').style.display = 'none';
+            currentQuestion = 0;
+            correctAnswers = 0;
+            timeSpentPerQuestion = [];
+            questions = [  // 重置問題陣列
+              {
+                  image: 'https://i.imgur.com/CRdXDf2.jpeg',
+                  answer: '中速'
+              },
+              {
+                  image: 'https://i.imgur.com/CRdXDf2.jpeg',
+                  answer: '緩速'
+              },
+              {
+                  image: 'https://i.imgur.com/CRdXDf2.jpeg',
+                  answer: '低速'
+              },
+              {
+                  image: 'your-image-url-4.jpg',
+                  answer: '慢速'
+              },
+              {
+                  image: 'your-image-url-5.jpg',
+                  answer: '注意'
+              },
+              {
+                  image: 'your-image-url-6.jpg',
+                  answer: '准調'
+              },
+              {
+                  image: 'your-image-url-7.jpg',
+                  answer: '平安'
+              },
+              {
+                  image: 'your-image-url-8.jpg',
+                  answer: '險阻'
+              },
+
+                // 更多問題...
+            ];
         }
 
-        function shuffleArray(array) {
-            /* 省略部分程式碼 */
+
+        function shuffleArray(array, numQuestions) {
+        var result = [];
+        var lastQuestion = null;
+        for (var i = 0; i < numQuestions; i++) {
+            var j;
+            do {
+                j = Math.floor(Math.random() * array.length);
+            } while (array[j] === lastQuestion);
+            result.push(array[j]);
+            lastQuestion = array[j];
+        }
+        return result;
+    }
+
+        // Function to format time with leading zero if necessary
+        function formatTime(time) {
+            return (time < 10 ? '0' : '') + time;
+        }
+        // 在網址中包含隨機數
+       window.addEventListener('load', () => {
+           // 檢查 URL 中是否存在隨機數
+           if (!window.location.href.includes('?v=')) {
+               // 生成隨機數
+               const randomValue = Math.floor(Math.random() * 1000000000) + 1;
+               // 構建新的 URL
+               const newURL = window.location.href + '?v=' + randomValue;
+               // 將新的 URL 分配給窗口位置，以觸發重新加載
+               window.location.href = newURL;
+           }
+       });
+        // register service worker
+        if ('serviceWorker' in navigator) {
+          window.addEventListener('load', () => {
+            navigator.serviceWorker.register('sw.js')
+              .then(registration => {
+                console.log('Service Worker registered successfully:', registration);
+              })
+              .catch(error => {
+                console.error('Service Worker registration failed:', error);
+              });
+          });
         }
     </script>
 </head>
 <body>
-    <!-- 省略部分程式碼 -->
+  <h1 id="title">號誌學習</h1>
+  <select id="num-questions">
+      <option value="6">6題</option>
+      <option value="12">12題</option>
+      <option value="18">18題</option>
+      <option value="24">24題</option>
+      <option value="30">30題</option>
+  </select>
+  <button id="start-button" class="start-button" onclick="startQuiz()">開始</button>
+  <div id="quiz-content" style="display: none;">
+      <div id="timer"></div>
+      <div class="frame1">
+      <img id="quiz-image" src="" alt="Quiz Image" style="display: block; margin: 0 auto;">
+  </div>
+
+  <div class="frame">
+      <button class="option-button" onclick="checkAnswer('中速')" onkeydown="return event.key !== 'Enter'">中速</button>
+      <button class="option-button" onclick="checkAnswer('緩速')" onkeydown="return event.key !== 'Enter'">緩速</button>
+      <button class="option-button" onclick="checkAnswer('低速')" onkeydown="return event.key !== 'Enter'">低速</button>
+      <button class="option-button" onclick="checkAnswer('慢速')" onkeydown="return event.key !== 'Enter'">慢速</button>
+      <button class="option-button" onclick="checkAnswer('注意')" onkeydown="return event.key !== 'Enter'">注意</button>
+      <button class="option-button" onclick="checkAnswer('准調')" onkeydown="return event.key !== 'Enter'">准調</button>
+      <button class="option-button" onclick="checkAnswer('平安')" onkeydown="return event.key !== 'Enter'">平安</button>
+      <button class="option-button" onclick="checkAnswer('險阻')" onkeydown="return event.key !== 'Enter'">險阻</button>
+  </div>
+</div>
+<div id="result">
+    <h2>統計結果</h2>
+    <p id="accuracy"></p>
+    <p id="time-spent"></p>
+    <button id="back-button" class="back-button" onclick="backToTitle()">返回標題</button>
+</div>
+
 </body>
 </html>
