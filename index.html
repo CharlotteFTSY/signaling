@@ -148,8 +148,8 @@ color: black;
             // 更多問題...
         ];
 
-   function startQuiz() {
-    var numQuestions = document.getElementById('num-questions').value;
+function startQuiz() {
+    var numQuestions = parseInt(document.getElementById('num-questions').value);
     console.log('numQuestions:', numQuestions);  // 印出題目數量
 
     // 如果問題數量大於題目列表的長度，則隨機選擇題目直到達到問題數量
@@ -171,6 +171,7 @@ color: black;
     console.log('startTime:', startTime);  // 印出開始時間
     showQuestion();
 }
+
 
 
         function checkAnswer(answer) {
