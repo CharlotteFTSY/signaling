@@ -149,20 +149,27 @@ color: black;
         ];
 
         function startQuiz() {
+    var numQuestions = document.getElementById('num-questions').value;
+    console.log('numQuestions:', numQuestions);  // 印出題目數量
 
-          var numQuestions = document.getElementById('num-questions').value;
-          console.log('numQuestions:', numQuestions);  // 印出題目數量
-          questions = shuffleArray(questions, numQuestions);
-          console.log('questions:', questions);  // 印出題目陣列
-            document.getElementById('title').style.display = 'none';
-            document.getElementById('start-button').style.display = 'none';
-            document.getElementById('num-questions').style.display = 'none';
-            document.getElementById('quiz-content').style.display = 'block';
-            startTime = new Date();
-            console.log('startTime:', startTime);  // 印出開始時間
-            showQuestion();
-        }
+    // 如果問題數量大於題目列表的長度，則重複題目列表直到達到問題數量
+    var repeatedQuestions = [];
+    while (repeatedQuestions.length < numQuestions) {
+        repeatedQuestions = repeatedQuestions.concat(questions);
+    }
 
+    // 隨機排序題目
+    questions = shuffleArray(repeatedQuestions);
+
+    console.log('questions:', questions);  // 印出題目陣列
+    document.getElementById('title').style.display = 'none';
+    document.getElementById('start-button').style.display = 'none';
+    document.getElementById('num-questions').style.display = 'none';
+    document.getElementById('quiz-content').style.display = 'block';
+    startTime = new Date();
+    console.log('startTime:', startTime);  // 印出開始時間
+    showQuestion();
+}
         function checkAnswer(answer) {
             console.log('User answer:', answer);  // 印出使用者的答案
             clearInterval(timer);
