@@ -152,16 +152,15 @@ color: black;
     var numQuestions = document.getElementById('num-questions').value;
     console.log('numQuestions:', numQuestions);  // 印出題目數量
 
-    // 如果問題數量大於題目列表的長度，則將題目列表重複和隨機增加直到達到問題數量
-    var repeatedQuestions = [];
-    var originalLength = questions.length;
-    while (repeatedQuestions.length < numQuestions) {
-        // 將原始問題列表的一部分添加到重複的問題列表中
-        repeatedQuestions = repeatedQuestions.concat(questions.slice(0, Math.min(numQuestions - repeatedQuestions.length, originalLength)));
+    // 如果問題數量大於題目列表的長度，則隨機選擇題目直到達到問題數量
+    var selectedQuestions = [];
+    while (selectedQuestions.length < numQuestions) {
+        var randomIndex = Math.floor(Math.random() * questions.length);
+        var randomQuestion = questions[randomIndex];
+        selectedQuestions.push(randomQuestion);
     }
 
-    // 隨機排序題目
-    questions = shuffleArray(repeatedQuestions);
+    questions = selectedQuestions;
 
     console.log('questions:', questions);  // 印出題目陣列
     document.getElementById('title').style.display = 'none';
@@ -172,6 +171,7 @@ color: black;
     console.log('startTime:', startTime);  // 印出開始時間
     showQuestion();
 }
+
 
         function checkAnswer(answer) {
             console.log('User answer:', answer);  // 印出使用者的答案
