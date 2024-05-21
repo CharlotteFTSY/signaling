@@ -245,17 +245,17 @@ function startQuiz() {
         }
 
         function endQuiz() {
-            var totalSpentTime = timeSpentPerQuestion.reduce(function(a, b) { return a + b; }, 0);
-            console.log('totalSpentTime:', totalSpentTime);  // 印出總花費時間
-            var averageTimePerQuestion = Math.round(totalSpentTime / questions.length);
-            console.log('averageTimePerQuestion:', averageTimePerQuestion);  // 印出每題平均花費時間
-            var accuracy = Math.round((correctAnswers / questions.length) * 100);
-            console.log('accuracy:', accuracy);  // 印出答題正確率
-            document.getElementById('quiz-content').style.display = 'none';
-            document.getElementById('result').style.display = 'block';
-            document.getElementById('accuracy').innerText = '答題正確率：' + accuracy + '%';
-            document.getElementById('time-spent').innerText = '每題平均花費時間：' + averageTimePerQuestion + '秒';
-        }
+    var totalSpentTime = timeSpentPerQuestion.reduce(function(a, b) { return a + b; }, 0);
+    var averageTimePerQuestion = totalSpentTime / questions.length;
+    var formattedAverageTime = averageTimePerQuestion.toFixed(2); // Convert to string with 2 decimal places
+    var accuracy = Math.round((correctAnswers / questions.length) * 100);
+
+    document.getElementById('quiz-content').style.display = 'none';
+    document.getElementById('result').style.display = 'block';
+    document.getElementById('accuracy').innerText = '答題正確率：' + accuracy + '%';
+    document.getElementById('time-spent').innerText = '每題平均花費時間：' + formattedAverageTime + '秒';
+}
+
 
         function backToTitle() {
             document.getElementById('title').style.display = 'block';
