@@ -81,21 +81,22 @@ padding: 10px;
        width: auto;
        height: auto;
    }
-   .option-button {
-       flex: 1 0 auto;
-       width: auto;
-       height: auto;
-       margin: 2px;
-       padding: 10px;
-       border: none;
-       color: white;
-       background-color: #4CAF50;
-       text-align: center;
-       text-decoration: none;
-       font-size: 70px;
-       transition-duration: 0.4s;
-       cursor: pointer;
-   }
+ .option-button {
+    flex: 1 0 auto;
+    width: 20vw; /* 這將使每個按鈕的寬度為視口寬度的 20% */
+    height: 20vw; /* 這將使高度與寬度相同，保持長寬比例 */
+    max-width: 100%; /* 這將確保按鈕不會超過其容器的寬度 */
+    margin: 2px;
+    padding: 10px;
+    border: none;
+    color: white;
+    background-color: #4CAF50;
+    text-align: center;
+    text-decoration: none;
+    font-size: 70px;
+    transition-duration: 0.4s;
+    cursor: pointer;
+}
 .option-button:hover {
 background-color: white;
 color: black;
