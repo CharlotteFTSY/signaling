@@ -47,6 +47,8 @@ margin: 10px;
   display: block;  /* 新增這行 */
 }
 #quiz-content {
+    width: 100vw; /* 這將使每個按鈕的寬度為視口寬度的 20% */
+    height: 100vh; /* 這將使高度與寬度相同，保持長寬比例 */
 display: flex;
 flex-direction: column;
 align-items: center;
@@ -84,7 +86,7 @@ padding: 10px;
  .option-button {
     flex: 1 0 auto;
     width: 20vw; /* 這將使每個按鈕的寬度為視口寬度的 20% */
-    height: 20vw; /* 這將使高度與寬度相同，保持長寬比例 */
+    height: 20vh; /* 這將使高度與寬度相同，保持長寬比例 */
     max-width: 100%; /* 這將確保按鈕不會超過其容器的寬度 */
     margin: 2px;
     padding: 10px;
