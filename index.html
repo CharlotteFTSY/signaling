@@ -3,16 +3,19 @@
 <head>
     <title>號誌學習</title>
     <style>
-body, html {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    height: 100%;
-    margin: 0;
-    padding: 0;
-    background-color: #ffffff;
-    font-family: Arial, sans-serif;
-}
+    body, html {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center; /* 新增這行 */
+
+        height: 100%;
+        margin: 0;
+        padding: 0;
+        background-color: #ffffff;
+        font-family: Arial, sans-serif;
+    }
+
 
 h1 {
     position: absolute;
@@ -26,7 +29,6 @@ h1 {
 }
 
 .start-button {
-    justify-content : center
     text-align: center;
     font-size: 6vw;
     width: 15vw;
@@ -46,14 +48,14 @@ h1 {
 #result h2 {
     text-align: center;
     font-size: 5vw;
+    margin: 1px;
 }
 
 #back-button {
     text-align: center;
     font-size: 5vw;
-    width: 20vw;
-    height: 40vh;
-    padding: 10px 20px;
+    width: 30vw;
+    height: 20vh;
     margin: 0px;
     margin: auto;
     display: block;
@@ -61,7 +63,7 @@ h1 {
 
 #quiz-content {
     width: 100%;
-    height: 100vh;
+    height: 98vh;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -70,7 +72,7 @@ h1 {
 
 #quiz-image {
     width: 100%;
-    max-width: 350px;  /* 適當調整最大寬度以符合大螢幕 */
+    max-width: 330px;  /* 適當調整最大寬度以符合大螢幕 */
     height: auto;
     object-fit: contain;
     display: block;
@@ -87,78 +89,41 @@ h1 {
 }
 
 #num-questions {
-    justify-content : center
-    font-size: 10vw;
+    font-size: 6vw;
     width: 15vw;
     height: 20vh;
 }
 .frame {
     display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
+    flex-wrap: wrap; /* 讓子元素換行 */
+    align-items: flex-start; /* 讓子元素在交叉軸上靠頂部對齊 */
+    justify-content: center; /* 讓子元素在主軸上居中 */
     padding: 10px;
     margin-bottom: 10px;
-    width: 100%;
+    width: 80vw;
     height: auto;
 }
 
+
 .option-button {
+    display: flex; /* 讓子元素水平排列 */
+    justify-content: center; /* 水平置中 */
+    align-items: center; /* 垂直置中 */
     flex: 1 0 auto;
-    width: 15%;
+    width: 10%;
     height: 10vh;  /* 這將使高度與寬度相同，保持長寬比例 */
-    max-width: 100%; /* 這將確保按鈕不會超過其容器的寬度 */
-    margin: 2px;
-    padding: 10px;
+    max-width: 20%; /* 這將確保按鈕不會超過其容器的寬度 */
+    margin: 3px;
+    padding: 0px;
     border: none;
     color: white;
     background-color: #4CAF50;
     text-align: center;
     text-decoration: none;
-    font-size: 50px;
-    transition-duration: 0.4s;
-    cursor: pointer;
-    
-}
-
-@media (max-width: 600px) {
-    h1 {
-        font-size: 10vw;
-    }
-
-    .start-button, .back-button {
-        font-size: 13vw;
-    }
-
-    #result {
-        font-size: 10vw;
-    }
-
-    #result h2 {
-        font-size: 10vw;
-    }
-
-    #timer {
-        font-size: 10vw;
-    }
-
-    #num-questions {
-        font-size: 10vw;
-    }
-
-    .option-button {
-        width: 100%;
-        height: 15vh;
-        font-size: 6vw;
-    }
-}
-gn: center;
-    text-decoration: none;
-    font-size: 70px;
+    font-size: 100px;
     transition-duration: 0.4s;
     cursor: pointer;
 }
-
-
 </style>
     <script>
 
